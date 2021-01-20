@@ -1,24 +1,93 @@
-body{
-    font-family: "Avenir Next";
+body
+{
+    font-family: Bitstream Vera Sans
 }
 
+li
+{
+    list-style: none;
+}
+
+/*-----------------------------------------------------*/
+/* header style */
+/*-----------------------------------------------------*/
 /* backgroud color and size of header */
 .header
 {
-    background-color: rgb(230, 250, 118);
+    background-color: rgb(16, 238, 182);
+    color:azure;
     height: 90px;
 }
 
+.header-logo
+{
+
+    font-size: 36px;
+    float:left;
+    padding: 20px 40px;
+}
+
+.header-list
+{
+    float: left;
+}
+
+.header-list li
+{
+    float: left;
+    padding:30px 20px;
+}
+
+/*-----------------------------------------------------*/
+/* main style */
+/*-----------------------------------------------------*/
 /* backgroud color and size of main */
 .main
 {
     background-color: rgb(149, 250, 250);
     height: 600px;
+    padding: 100px 80px;
 }
 
+.copy-container h1
+{
+    font-size: 140px;
+}
+
+.copy-container h2
+{
+    font-size : 60px;
+}
+
+.copy-container span
+{
+    color: rgb(243, 30, 30);
+}
+
+/*-----------------------------------------------------*/
+/* footer style */
+/*-----------------------------------------------------*/
 /* background color and size of footer */
 .footer
 {
     background-color: rgb(208, 148, 216);
     height: 270px;
+    color: azure;
+    padding: 40px;
+}
+
+.footer-logo
+{
+    font-size: 32px;
+    float:left;
+}
+
+.footer-list
+{
+    float: right;
+}
+
+.footer-list li
+{
+    padding-bottom: 20px;
 }

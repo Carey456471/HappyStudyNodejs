@@ -8,14 +8,14 @@ app.set("views", __dirname + "/views");     //set the view directory
 app.set("view options", {layout : false});
 
 // set app port
-app.set("port", process.env.PORT || 8080);
+app.set("port", process.env.PORT || 3000);
 
 app.use(express.static(__dirname));
 
 //set the app that render the index.ejs in views folder
 app.get("/", function(req, res)
 {
-    res.render("index", {title : "Home Page"});
+    res.render("pages/index", {title : "Home Page"});
 });
 
 app.listen(app.get("port"));
