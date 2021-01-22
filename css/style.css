@@ -1,5 +1,6 @@
 body
 {
+    margin: 0;
     font-family: 'Hachi Maru Pop', cursive;
 }
 
@@ -8,35 +9,46 @@ li
     list-style: none;
 }
 
+
 /*-----------------------------------------------------*/
 /* header style */
 /*-----------------------------------------------------*/
 /* backgroud color and size of header */
-.header
-{
-    background-color: rgb(16, 238, 182);
-    color:azure;
-    height: 90px;
+.header{
+  background-color : rgba(34,49,52,0.9);
+  height : 65px;
+  width : 100%;
+  position : fixed;
+  z-index: 10;
 }
 
-.header-logo
-{
-
-    font-size: 36px;
-    float:left;
-    padding: 20px 40px;
+.header-left{
+    float : left;
 }
 
-.header-list
-{
+.logo{
+  margin-top : 20px;
+  width : 124px;
+}
+
+.header-right{
+   
+    float: right;
+    
+}
+  
+.header-right a:hover{
+    background-color : rgba(255,255,255,0.5);
+}
+  
+.header-right a {
+    line-height: 65px;
+    padding: 0 25px;
+    color: white;
+    display: block;
     float: left;
-}
-
-.header-list li
-{
-    float: left;
-    padding:30px 20px;
-}
+    transition: all 0.5s;
+  }
 
 /*-----------------------------------------------------*/
 /* main style */
@@ -106,7 +118,7 @@ li
     color:rgb(241, 15, 15);
 }
 
-input textarea
+.contact-form input textarea
 {
     width: 400px;
     margin-top: 10px;
