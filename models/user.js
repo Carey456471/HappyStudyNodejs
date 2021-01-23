@@ -3,24 +3,46 @@
 //------------------------------------------------------------
 
 //require db
+const { MongoTimeoutError } = require("mongodb");
 var mongoDB = require("../mongoDB");
-
-// const client = db.get();
 
 exports.getUser = async function(name, password, done)
 {
-    //var dbo = client.db("DB");
-    // client.db("DB").collcetion("user").findOne({"name" : name, "password" : password}, function(err, user)
-    // {
-    //     if(err)
-    //         return done(err);
-    //     done(null, user);    
-    // });
-
+    // get the mongoDB connection
     const db = await mongoDB.mongoDBConnection();
-    const result = await db.collection("user").find({}).toArray();
-    console.log("what is result", result);
+    
+    // execute the query
+    db.collection("user").findOne({"name" : name, "password" : password}, function(err, user)
+    {
+        if (err) return done(err);
+        done(null, user);
+    });
+}
 
-    // console.log(name);
-    // console.log(password);
+exports.addUser = async function(name, password, done)
+{
+    // get the mongoDB connection
+    const db = await mongoDB.mongoDBConnection();
+
+    // check wheater exsit
+    // to be finished
+    // const result = db.collection("user").findOne({"name" : name});
+    // if(result != null)
+    // {
+    //     console.log("error");
+    //     return done("error");
+    // }
+
+    // insert new object to collection
+    var obj = 
+    {
+        "name" : name,
+        "password" : password,
+    };
+    
+    db.collection("user").insertOne(obj, function(err, user)
+    {
+        if(err) return done(err);
+        done(null, user);
+    });
 }

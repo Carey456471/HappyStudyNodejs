@@ -27,7 +27,7 @@ const mongoOptions =
 
 const client = new MongoClient(uri, mongoOptions);
 
-let _db;
+//let _db;
 
 client.on("serverClosed", (event) =>
 {
@@ -35,20 +35,21 @@ client.on("serverClosed", (event) =>
     console.log(JSON.stringify(event, null, 2));
 });
 
-
+// connect to mongodb cluster and return the database
+// if is connected, just return the database
 const mongoDBConnection = async (app) =>
 {
     try
     {
         if (client.isConnected())
         {
-            _db = client.db("DB");
+            //_db = client.db("DB");
             return client.db("DB");
         }
 
         await client.connect();
         if(app) app.use(passport.initialize());
-        _db = client.db("DB");
+        //_db = client.db("DB");
         return client.db("DB");
     } catch (err)
     {
@@ -56,13 +57,9 @@ const mongoDBConnection = async (app) =>
     }
 };
 
-const dbObj = () => _db;
+//const dbObj = () => _db;
 
-module.exports = 
-{
-    mongoDBConnection,
-    dbObj,
-};
+module.exports = { mongoDBConnection,};
 
 // let client;
 

@@ -9,21 +9,10 @@ const methodOverride = require("method-override");
 const path = require("path");
 
 // require custom modules
-//const mongoDB = require("./mongoDB");
 const { home, user } = require("./controller");
 
 // create a express app
 var app = express();
-
-// async function test()
-// {
-// // create db connection
-//     const db = await mongoDB.mongoDBConnection();
-//     const result = await db.collection("user").find({}).toArray();
-//     console.log("what is result", result);
-// }
-
-// test();
 
 // set express app to use view engine of ejs
 app.set("view engine", "ejs");
@@ -36,7 +25,6 @@ console.log(__dirname);
 app.set("port", process.env.PORT || 3000);
 
 // serve static file
-//app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'css')))
 
 // parse request bodies (req.body)
@@ -49,8 +37,12 @@ app.use(methodOverride("_method"));
 // routes
 app.get("/", home.index);
 
-app.post("/login", user.login);
 app.get("/login", home.index);
+app.post("/login", user.login);
+app.get("/signup", home.index);
+app.post("/signup", user.signup)
+
+
 
 // app.post("/login", )
 
