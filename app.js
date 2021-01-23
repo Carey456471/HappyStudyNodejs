@@ -9,13 +9,21 @@ const methodOverride = require("method-override");
 const path = require("path");
 
 // require custom modules
-//const db = require("./db");
+//const mongoDB = require("./mongoDB");
 const { home, user } = require("./controller");
 
 // create a express app
 var app = express();
 
-//db.connect;
+// async function test()
+// {
+// // create db connection
+//     const db = await mongoDB.mongoDBConnection();
+//     const result = await db.collection("user").find({}).toArray();
+//     console.log("what is result", result);
+// }
+
+// test();
 
 // set express app to use view engine of ejs
 app.set("view engine", "ejs");
@@ -42,6 +50,7 @@ app.use(methodOverride("_method"));
 app.get("/", home.index);
 
 app.post("/login", user.login);
+app.get("/login", home.index);
 
 // app.post("/login", )
 

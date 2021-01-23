@@ -16,7 +16,75 @@ var uri = "mongodb+srv://<username>:<password>@cluster0.dzea7.mongodb.net/<dbnam
 uri = uri.replace("<username>", username);
 uri = uri.replace("<password>", password);
 
-const client = new MongoClient(uri);
+const mongoOptions = 
+{
+    poolSize : 100,
+    wtimeout : 2500,
+    connectTimeoutMS: 10000,
+    useNewUrlParser : true,
+    useUnifiedTopology : true,
+};
+
+const client = new MongoClient(uri, mongoOptions);
+
+let _db;
+
+client.on("serverClosed", (event) =>
+{
+    console.log("received serverClosed");
+    console.log(JSON.stringify(event, null, 2));
+});
+
+
+const mongoDBConnection = async (app) =>
+{
+    try
+    {
+        if (client.isConnected())
+        {
+            _db = client.db("DB");
+            return client.db("DB");
+        }
+
+        await client.connect();
+        if(app) app.use(passport.initialize());
+        _db = client.db("DB");
+        return client.db("DB");
+    } catch (err)
+    {
+        return Promise.reject(err);
+    }
+};
+
+const dbObj = () => _db;
+
+module.exports = 
+{
+    mongoDBConnection,
+    dbObj,
+};
+
+// let client;
+
+// module.exports.connect = async () =>
+// {
+//     try{
+//         client = await MongoClient.connect(uri, { useNewUrlParser: true });
+//     } catch(e)
+//     {
+//         console.log("Could not connect to mongoDB");
+//     }
+// }
+
+// module.exports.get = () =>
+// {
+//     client;
+// }
+
+// module.exports.close = () =>
+// {
+//     client.close();
+// }
 
 //create an instance of MogoClient and connect to the cluster
 // client.connect(function(err)
@@ -53,5 +121,5 @@ const client = new MongoClient(uri);
 // };
 
 // main().catch(console.error);
-module.exports.client = client;
+
 // module.exports.user = client.db("DB").collection("user");

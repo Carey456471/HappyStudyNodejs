@@ -3,30 +3,24 @@
 //------------------------------------------------------------
 
 //require db
-var db = require("../db");
+var mongoDB = require("../mongoDB");
 
-var userDBO;
-db.client.connect(function(err, db)
+// const client = db.get();
+
+exports.getUser = async function(name, password, done)
 {
-    if(err) throw err
-    console.log("db connect success.");
-    var dbo = db.db("DB");
-    userDBO = dbo;
-});
+    //var dbo = client.db("DB");
+    // client.db("DB").collcetion("user").findOne({"name" : name, "password" : password}, function(err, user)
+    // {
+    //     if(err)
+    //         return done(err);
+    //     done(null, user);    
+    // });
 
-exports.getUser = function(name, password, done)
-{
-    db.client.connect(function(err)
-    {
-        if(err) throw err;
-        
-    });
-    
+    const db = await mongoDB.mongoDBConnection();
+    const result = await db.collection("user").find({}).toArray();
+    console.log("what is result", result);
 
-    userDBO.findOne({"name" : name, "password" : password}, function(err, user)
-    {
-        if(err)
-            return done(err);
-        done(null, user);    
-    });
+    // console.log(name);
+    // console.log(password);
 }
