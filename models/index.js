@@ -1,8 +1,5 @@
 //------------------------------------------------------------
-// controllers index
+// Models index
 //------------------------------------------------------------
 
-const home = require("./home");
-const user = require("./user");
-
-module.exports = {home, user};
+const userModel = require("./user");

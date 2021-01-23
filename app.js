@@ -5,15 +5,17 @@
 // require modules
 const express = require("express");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 const path = require("path");
 
 // require custom modules
 //const db = require("./db");
-const { home } = require("./controller");
-// const {home, login, signup}
+const { home, user } = require("./controller");
 
 // create a express app
 var app = express();
+
+//db.connect;
 
 // set express app to use view engine of ejs
 app.set("view engine", "ejs");
@@ -29,19 +31,19 @@ app.set("port", process.env.PORT || 3000);
 //app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'css')))
 
-//set the app that render the index.ejs in views folder
-app.get("/", function(req, res)
-{
-   res.redirect("/pages/index");
-});
+// parse request bodies (req.body)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get("/pages/index", function(req, res)
-{
-    res.render("pages/index", {title : "Home Page"});
-});
+// allow overriding methods in query (?_method=put)
+app.use(methodOverride("_method"));
 
 // routes
-//app.get("/", home.index);
+app.get("/", home.index);
+
+app.post("/login", user.login);
+
+// app.post("/login", )
 
 app.listen(app.get("port"));
 console.log("listening on port "+ app.get("port") +"...");
